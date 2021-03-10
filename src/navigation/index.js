@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 // import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 
-function HomeScreen(props: any) {
+function HomeScreen(props) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text style={{fontSize:20}}>Home Screen</Text>
