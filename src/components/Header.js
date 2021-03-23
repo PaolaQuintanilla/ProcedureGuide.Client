@@ -43,11 +43,12 @@ const BasketButton = ({ isWhite, style, navigation }) => (
 class Header extends React.Component {
   handleLeftPress = () => {
     const { back, navigation } = this.props;
+    console.log(this.props.navigation, "Mmmmmmmmmmmmmmmmmmmmm")
     return back ? navigation.goBack() : navigation.openDrawer();
   };
   renderRight = () => {
     const { white, title, navigation } = this.props;
-    
+    console.log(this.props.navigation, "Mmmmmmmmmmmmmmmmmmmmm")
 
     if (title === 'Title') {
       return [
@@ -115,7 +116,7 @@ class Header extends React.Component {
         style={styles.search}
         placeholder="What are you looking for?"
         placeholderTextColor={'#8898AA'}
-        onFocus={() => {Keyboard.dismiss(); navigation.navigate('Pro')}}
+        onFocus={() => { Keyboard.dismiss(); navigation.navigate('Pro') }}
         iconContent={
           <Icon size={16} color={theme.COLORS.MUTED} name="zoom-bold2x" family="NowExtra" />
         }

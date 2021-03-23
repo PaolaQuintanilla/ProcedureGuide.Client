@@ -10,8 +10,8 @@ import {
 import { Block, Text, theme } from "galio-framework";
 import { useSafeArea } from "react-native-safe-area-context";
 import Images from "../constants/Images";
-import { DrawerItem as DrawerCustomItem } from "../components/DrawerItem";
-import { Icon } from "../components/Icon";
+import DrawerItem from "../components/DrawerItem";
+import Icon from "../components/Icon";
 
 import nowTheme from "../constants/Theme";
 
@@ -27,11 +27,6 @@ function CustomDrawerContent({
 }) {
   const insets = useSafeArea();
   const screens = [
-    "Home",
-    "Components",
-    "Articles",
-    "Profile",
-    "Account",
     "Tramites"
   ];
   return (
@@ -54,7 +49,7 @@ function CustomDrawerContent({
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           {screens.map((item, index) => {
             return (
-              <DrawerCustomItem
+              <DrawerItem
                 title={item}
                 key={index}
                 navigation={navigation}
@@ -73,8 +68,8 @@ function CustomDrawerContent({
             DOCUMENTATION
           </Text>
         </Block>
-        <DrawerCustomItem title="GETTING STARTED" navigation={navigation}/>
-        <DrawerCustomItem title="LOGOUT" navigation={navigation}/>
+        <DrawerItem title="GETTING STARTED" navigation={navigation}/>
+        <DrawerItem title="LOGOUT" navigation={navigation}/>
         </ScrollView>
       </Block>
     </Block>

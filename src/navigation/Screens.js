@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 // import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // screens
-// import Home from '../screens/Home';
+import Home from '../screens/Home';
 // import Pro from '../screens/Pro';
 // import Profile from '../screens/Profile';
 // import Register from '../screens/Register';
@@ -110,48 +110,49 @@ function ProfileStack(props) {
     </Stack.Navigator>
   );
 }
-
-function HomeStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title="Home"
-              search
-              options
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          cardStyle: { backgroundColor: "#FFFFFF" }
-        }}
-      />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true
-        }}
-      />
-    </Stack.Navigator>
-  );
-}*/
+*/
+// function HomeStack(props) {
+//   return (
+//     <Stack.Navigator mode="card" headerMode="screen">
+//       <Stack.Screen
+//         name="Home"
+//         component={Home}
+//         options={{
+//           header: ({ navigation, scene }) => (
+//             <Header
+//               title="Home"
+//               search
+//               options
+//               navigation={navigation}
+//               scene={scene}
+//             />
+//           ),
+//           cardStyle: { backgroundColor: "#FFFFFF" }
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Pro"
+//         component={Pro}
+//         options={{
+//           header: ({ navigation, scene }) => (
+//             <Header
+//               title=""
+//               back
+//               white
+//               transparent
+//               navigation={navigation}
+//               scene={scene}
+//             />
+//           ),
+//           headerTransparent: true
+//         }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
 
 function TramitesStack(props) {
+  console.log(props, "AppStack")
   return (
     <Stack.Navigator initialRouteName="Tramites" mode="card" headerMode="screen">
       <Stack.Screen
@@ -161,7 +162,7 @@ function TramitesStack(props) {
           header: ({ navigation, scene }) => (
             <Header 
               title="Tramites"
-              navigation={navigation}
+              navigation={props.navigation}
               scene={scene}
             />
           ),
@@ -189,7 +190,8 @@ function TramitesStack(props) {
   );
 }
 
-function AppStack(props) {
+export default function AppStack(props) {
+   console.log(props, "AppStack")
   return (
     <Drawer.Navigator
       style={{ flex: 1 }}
@@ -230,18 +232,18 @@ function AppStack(props) {
   );
 }
 
-export default function OnboardingStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="none">
-      <Stack.Screen
-        name="Onboarding"
-        component={TramitesStack}
-        option={{
-          headerTransparent: true
-        }}
-      />
-      <Stack.Screen name="App" component={AppStack} />
-    </Stack.Navigator>
-  );
-}
+// export default function OnboardingStack(props) {
+//   return (
+//     <Stack.Navigator mode="card" headerMode="none">
+//       <Stack.Screen
+//         name="Onboarding"
+//         component={TramitesStack}
+//         option={{
+//           headerTransparent: true
+//         }}        
+//       />
+//       <Stack.Screen name="App" component={AppStack} />
+//     </Stack.Navigator>
+//   );
+// }
 
