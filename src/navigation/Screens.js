@@ -152,7 +152,6 @@ function ProfileStack(props) {
 // }
 
 function TramitesStack(props) {
-  console.log(props, "AppStack")
   return (
     <Stack.Navigator initialRouteName="Tramites" mode="card" headerMode="screen">
       <Stack.Screen
@@ -191,7 +190,6 @@ function TramitesStack(props) {
 }
 
 export default function AppStack(props) {
-   console.log(props, "AppStack")
   return (
     <Drawer.Navigator
       style={{ flex: 1 }}

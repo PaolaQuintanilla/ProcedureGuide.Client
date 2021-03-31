@@ -27,7 +27,11 @@ function CustomDrawerContent({
 }) {
   const insets = useSafeArea();
   const screens = [
-    "Tramites"
+    "Tramites",
+    "Components",
+    "Articles",
+    "Profile",
+    "Account",
   ];
   return (
     <Block

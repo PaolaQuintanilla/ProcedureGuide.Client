@@ -43,12 +43,10 @@ const BasketButton = ({ isWhite, style, navigation }) => (
 class Header extends React.Component {
   handleLeftPress = () => {
     const { back, navigation } = this.props;
-    console.log(this.props.navigation, "Mmmmmmmmmmmmmmmmmmmmm")
     return back ? navigation.goBack() : navigation.openDrawer();
   };
   renderRight = () => {
     const { white, title, navigation } = this.props;
-    console.log(this.props.navigation, "Mmmmmmmmmmmmmmmmmmmmm")
 
     if (title === 'Title') {
       return [
