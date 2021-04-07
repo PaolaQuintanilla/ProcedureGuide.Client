@@ -9,7 +9,6 @@ const list = [{title: "Recabar Kardex de notas", descripcion:"plan nuevo"}, {tit
 // const url = "https://localhost:5001/swagger/v1/swagger.json";
 const url = "https://localhost:5001/";
 async function axiosApiCall(){
-  console.log("Hooola")
   // axios({
   //   "method": "GET",
   //   "url": "https://localhost:5001/",
@@ -31,60 +30,69 @@ async function axiosApiCall(){
   // const response = await api.get();
   // console.log(response, "response")
   // return response;
-  
-  await fetch('http://192.168.0.145:5000/tramite')  
-  .then(function(response) {
-    console.log("response")
-    return response.json()
-  })
-  .catch((error) => {
-    console.log(error)
-  })
   // const response = await axios.get('https://jsonplaceholder.typicode.com/todos/1');
-  // const response = await axios.get('https://192.168.0.145:5001/tramite');
-  await axios.get('http://192.168.0.145:5000/tramite')
+  // console.log(response);
+    
+  // await fetch('http://192.168.0.145:5000/tramite')  
+  // .then(function(response) {
+  //   console.log("response")
+  //   return response.json()
+  // })
+  // .catch((error) => {
+  //   console.log(error)
+  // })
+  
+  await axios.get('http://192.168.0.141:5000/tramite')
   .then(function (response) {
-    console.log("response")
+    console.log(response.data)
   })
   .catch((error) => {
     console.log(error)
   });
-  // console.log(response);
 
 }
 
 
 class Tramites extends React.Component {    
-  // state={
-  //   data: []
-  // }  
+  constructor(props) {
+    super(props)
+    this.state = {
+      procedure: []
+    }
+  }
 
-  // peticionGet=()=>{
-  //   console.log("peticionGet")
-  //   axios.get(url).then(response => {
-  //     // this.setState({data: response.data});
-  //     console.log(response)
-  //   })
-  // }
+  componentDidMount() {
+    axios.get('http://192.168.0.141:5000/tramite')
+    .then((response) => {
+      console.log(response.data)
+      this.setState({
+        procedure: response.data
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+  }
+
   renderCards = () => {
       const { navigation } = this.props;
       return (
           <Block>
               {
-                // this.state.data.map( (tramite, i) => {
-                list.map( (tramite, i) => {
+                this.state.procedure.map( (tramite, i) => {
+                // list.map( (tramite, i) => {
                     return (<List.Item
                         onPress={() => navigation.navigate('InfoTramite', {tramite: tramite})}
                         key={i}
-                        title={tramite.title}
-                        description={tramite.descripcion}
+                        title={tramite.nombre}
+                        // description={tramite.nombre}
                         left={props => <List.Icon {...props} icon="folder"/>}
                     />)
                 })
               }
-              <Button
+              {/* <Button
                 shadowless
-              //   color={nowTheme.COLORS.PRIMARY}
+                //color={nowTheme.COLORS.PRIMARY}
                 // onPress={() => navigation.navigate('App')}
                 onPress={ () =>  axiosApiCall()}
               >
@@ -94,8 +102,7 @@ class Tramites extends React.Component {
                 >
                   GET STARTED
                 </Text>
-              </Button>
-              {/* expo start --tunnel */}
+              </Button> */}
           </Block>
       );
     };

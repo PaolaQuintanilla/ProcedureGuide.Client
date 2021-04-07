@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -12,6 +12,7 @@ import { useSafeArea } from "react-native-safe-area-context";
 import Images from "../constants/Images";
 import DrawerItem from "../components/DrawerItem";
 import Icon from "../components/Icon";
+import axios from 'axios';
 
 import nowTheme from "../constants/Theme";
 
@@ -24,18 +25,51 @@ function CustomDrawerContent({
   focused,
   state,
   ...rest
-}) {
-  const insets = useSafeArea();
-  const screens = [
-    "Tramites",
-    "Components",
-    "Articles",
-    "Profile",
-    "Account",
-  ];
+})  {
+  const [screen, setScreen] = useState([]);
+  // let screens = [];
+  async function load() {
+    const {data} = await axios.get('http://192.168.0.141:5000/tramite/GetSectorUniversitarios')
+    setScreen(data)
+    // .then((response)=>{
+    //   console.log(response.data, "res")
+    //   setScreen(response.data)
+    //   // screens = response.data;
+    // })
+    // .catch((error) => {
+    //   console.log(error)
+    // })
+
+  }
+
+  useEffect(() => { 
+    load();
+  }, [])
+
+  
+
+  // axios.get('http://192.168.0.141:5000/tramite/GetSectorUniversitarios')
+  // .then((response)=>{
+  //   console.log(response.data, "res")
+  //   setScreen(response.data)
+  //   screens = response.data;
+  // })
+  // .catch((error) => {
+  //   console.log(error)
+  // })
+
+  // const insets = useSafeArea();
+  console.log(screen, "sd")
+  // const screens = [
+  //   "Tramites",
+  //   "Components",
+  //   "Articles",
+  //   "Profile",
+  //   "Account",
+  // ];
   return (
     <Block
-      style={styles.container}
+      style={styles.container} 
       forceInset={{ top: "always", horizontal: "never" }}
     >
       <Block style={styles.header}>
@@ -51,10 +85,10 @@ function CustomDrawerContent({
       </Block>
       <Block flex style={{ paddingLeft: 8, paddingRight: 14 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-          {screens.map((item, index) => {
+          {screen.map((item, index) => {
             return (
               <DrawerItem
-                title={item}
+                title={item.nombre}
                 key={index}
                 navigation={navigation}
                 focused={state.index === index ? true : false}

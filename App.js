@@ -1,30 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useFonts } from 'expo-font';
 import { Image } from 'react-native';
 // import { AppLoading } from 'expo';
-import * as Font from 'expo-font';
-import { Asset } from 'expo-asset';
+// import * as Font from 'expo-font';
+// import { Asset } from 'expo-asset';
 import { Block, GalioProvider } from 'galio-framework';
 import { NavigationContainer } from '@react-navigation/native';
 
 import Screens from './src/navigation/Screens';
 import Images from './src/constants/Images';
 import nowTheme from './src/constants/Theme';
-import articles from './src/constants/articles';
 
 // cache app images
-const assetImages = [
-  Images.Onboarding,
-  Images.Logo,
-  Images.Pro,
-  Images.NowLogo,
-  Images.iOSLogo,
-  Images.androidLogo,
-  Images.ProfilePicture,
-  Images.CreativeTimLogo,
-  Images.InvisionLogo,
-  Images.RegisterBackground,
-  Images.ProfileBackground
-];
+// const assetImages = [
+//   Images.Onboarding,
+//   Images.Logo,
+//   Images.Pro,
+//   Images.NowLogo,
+//   Images.iOSLogo,
+//   Images.androidLogo,
+//   Images.ProfilePicture,
+//   Images.CreativeTimLogo,
+//   Images.InvisionLogo,
+//   Images.RegisterBackground,
+//   Images.ProfileBackground
+// ];
 // export default function App() {
 //   return (
 //     <View style={styles.container}>
@@ -52,34 +52,40 @@ const assetImages = [
 // }
 
 // cache product images
-articles.map(article => assetImages.push(article.image));
+// articles.map(article => assetImages.push(article.image));
 
-function cacheImages(images) {
-  return images.map(image => {
-    if (typeof image === 'string') {
-      return Image.prefetch(image);
-    } else {
-      return Asset.fromModule(image).downloadAsync();
-    }
-  });
-}
+// function cacheImages(images) {
+//   return images.map(image => {
+//     if (typeof image === 'string') {
+//       return Image.prefetch(image);
+//     } else {
+//       return Asset.fromModule(image).downloadAsync();
+//     }
+//   });
+// }
 
-export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
-    fontLoaded: false
-  };
+// export default class App extends React.Component {
+  export default function App() {
+  // state = {
+  //   isLoadingComplete: false,
+  //   fontLoaded: false
+  // };
 
-  async componentDidMount() {
-    Font.loadAsync({
-      'montserrat-regular': require('./src/assets/font/Montserrat-Regular.ttf'),
-      'montserrat-bold': require('./src/assets/font/Montserrat-Bold.ttf')
-    });
+  // async componentDidMount() {
+  //   Font.loadAsync({
+  //     'montserrat-regular': require('./src/assets/font/Montserrat-Regular.ttf'),
+  //     'montserrat-bold': require('./src/assets/font/Montserrat-Bold.ttf')
+  //   });
 
-    this.setState({ fontLoaded: true });
-  }
+  //   this.setState({ fontLoaded: true });
+  // }
 
-  render() {
+  let [fonts] = useFonts({
+    'montserrat-regular': require('./src/assets/font/Montserrat-Regular.ttf'),
+    'montserrat-bold': require('./src/assets/font/Montserrat-Bold.ttf')
+  })
+
+  // render() {
     // if (!this.state.isLoadingComplete) {
     //   return (
     //     <AppLoading
@@ -99,7 +105,7 @@ export default class App extends React.Component {
         </NavigationContainer>
       );
     // }
-  }
+  // }
 
   // _loadResourcesAsync = async () => {
   //   await Font.loadAsync({

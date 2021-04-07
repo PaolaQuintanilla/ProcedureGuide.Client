@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Linking } from "react-native";
 import { Block, Text, theme } from "galio-framework";
+import { List } from 'react-native-paper';
 
 import Icon from "./Icon";
 import nowTheme from "../constants/Theme";
@@ -102,7 +103,7 @@ class DrawerItem extends React.Component {
       case "Tramites":
         return (
           <Icon
-            name="profile" //filetext1 || documents
+            name="share" //filetext1 || documents
             family="NowExtra"
             size={18}
             style={{ borderColor: "rgba(0,0,0,0.5)", opacity: 0.5 }}
