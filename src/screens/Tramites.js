@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Block, Text, Button, theme } from 'galio-framework';
 import { List } from 'react-native-paper';
 import { ScrollView } from 'react-native';
 import axios from 'axios'
 import AxiosFactory from '../api/axiosFactory';
-const list = [{title: "Recabar Kardex de notas", descripcion:"plan nuevo"}, {title: "REIMPRESIÓN DE MATRICULA DE INSCRIPCIÓN", descripcion:""}, {title: "OBTENCIÓN DE CERTIFICADO DE ALUMNO REGULAR", descripcion:""},{title: "CERTIFICADO DE ESTUDIOS", descripcion:""}] 
 
-// const url = "https://localhost:5001/swagger/v1/swagger.json";
-const url = "https://localhost:5001/";
 async function axiosApiCall(){
   // axios({
   //   "method": "GET",
@@ -53,67 +50,43 @@ async function axiosApiCall(){
 }
 
 
-class Tramites extends React.Component {    
-  constructor(props) {
-    super(props)
-    this.state = {
-      procedure: []
-    }
+function Tramites(props) {    
+  const [procedure, setProcedure] = useState([]);
+  console.log(props, 'tramitess')
+  async function load() {
+    const api = AxiosFactory('tramite');
+    const response = await api.get('http://192.168.0.141:5000/tramite/GetBySectorUniversitario/'+ props.route.params.itemId);
+    setProcedure(response.data)
   }
 
-  componentDidMount() {
-    axios.get('http://192.168.0.141:5000/tramite')
-    .then((response) => {
-      console.log(response.data)
-      this.setState({
-        procedure: response.data
-      })
-    })
-    .catch((error) => {
-      console.log(error)
-    });
-  }
+  useEffect(() => { 
+    load();
+  }, [])
 
-  renderCards = () => {
-      const { navigation } = this.props;
+  function renderCards() {
       return (
           <Block>
               {
-                this.state.procedure.map( (tramite, i) => {
-                // list.map( (tramite, i) => {
+                procedure.map( (tramite, i) => {
                     return (<List.Item
-                        onPress={() => navigation.navigate('InfoTramite', {tramite: tramite})}
+                        onPress={() => props.navigation.navigate('InfoTramite', {tramite: tramite.idTramites})}
                         key={i}
                         title={tramite.nombre}
-                        // description={tramite.nombre}
+                        description={tramite.nombre}
                         left={props => <List.Icon {...props} icon="folder"/>}
                     />)
                 })
               }
-              {/* <Button
-                shadowless
-                //color={nowTheme.COLORS.PRIMARY}
-                // onPress={() => navigation.navigate('App')}
-                onPress={ () =>  axiosApiCall()}
-              >
-                <Text
-                  style={{ fontFamily: 'montserrat-bold', fontSize: 14 }}
-                  color={theme.COLORS.WHITE}
-                >
-                  GET STARTED
-                </Text>
-              </Button> */}
+
           </Block>
       );
     };
 
-  render () {
-      return(
-          <Block flex>
-            <ScrollView showsVerticalScrollIndicator={false}>{this.renderCards()}</ScrollView>
-          </Block>
-      )
-  }
+    return(
+        <Block flex>
+          <ScrollView showsVerticalScrollIndicator={false}>{renderCards()}</ScrollView>
+        </Block>
+    )
 }
 
 export default Tramites;

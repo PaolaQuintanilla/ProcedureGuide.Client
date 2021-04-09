@@ -1,38 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Block } from 'galio-framework';
-// import { List } from 'react-native-paper';
+import { List } from 'react-native-paper';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import AxiosFactory from '../api/axiosFactory';
 
-
-
-function InfoTramite ({route}) {
-    const {tramite} = route.params;
-
+function InfoTramite (props) {
+    const [requisitos, setRequisitos] = useState([]) 
+    console.log(props, 'infoTramite') 
+    async function load() {
+      const api = AxiosFactory('tramite');
+      const data = await api.get('http://192.168.0.141:5000/tramite/GetRequisitosBy/'+ props.route.params.tramite);
+      console.log(data.data, "rr")
+      setRequisitos(data.data)
+    }
+    console.log(requisitos,'requisitos')
+    useEffect(() => { 
+      load();
+    }, [])
     return (
-        <Block style={styles.container}>
-          <View style={styles.list}></View>
-          <Block middle row style={{ marginTop: 150, marginBottom: 30}}>
-            <Text
-              color="white"
-              size={16}
-              style={{ fontFamily: 'montserrat-regular' }}
-            >
-              Coded by
-            </Text>
-            <Text>
-              Hello
-            </Text >
+        <Block style={{ marginTop: 20, marginBottom: 30, marginLeft:30}}>
 
+            {
+              requisitos.map( (tramite, i) => {
+                  return (<List.Item
+                      onPress={() => props.navigation.navigate('Direccion', {tramite: tramite.idTramites})}
+                      key={i}
+                      title={tramite.nombre}
+                      description={tramite.nombre}
+                      left={props => <List.Icon {...props} icon="check"/>}
+                      right={props => <List.Icon {...props} icon="information" onPress={() => props.navigation.navigate('Direccion', {tramite: tramite.idTramites})}/>}
+                  />)
+              })
+            }
 
-            {/* <Image
-              source={Images.CreativeTimLogo}
-              style={{
-                height: 29,
-                width: 129,
-                marginLeft: theme.SIZES.BASE
-              }}
-            /> */}
-          </Block>
         </Block>
     )    
 }

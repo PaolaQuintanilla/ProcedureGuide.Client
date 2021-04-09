@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect} from 'react';
 import { Block } from "galio-framework";
 import { Easing, Animated, Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -6,6 +6,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 // import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // screens
 import Home from '../screens/Home';
+import AxiosFactory from '../api/axiosFactory';
+
 // import Pro from '../screens/Pro';
 // import Profile from '../screens/Profile';
 // import Register from '../screens/Register';
@@ -20,6 +22,7 @@ import CustomDrawerContent from "./Menu";
 // header for screens
 import Header from '../components/Header';
 import nowTheme from "../constants/Theme";
+import direccion from '../screens/direccion';
 
 const { width } = Dimensions.get("screen");
 
@@ -152,21 +155,23 @@ function ProfileStack(props) {
 // }
 
 function TramitesStack(props) {
+  console.log(props, 'props')
   return (
-    <Stack.Navigator initialRouteName="Tramites" mode="card" headerMode="screen">
+    <Stack.Navigator initialRouteName={props.route.name} mode="card" headerMode="screen">
       <Stack.Screen
-        name="Tramites"
+        name={props.route.name}
         component={Tramites}
         options={{
           header: ({ navigation, scene }) => (
             <Header 
-              title="Tramites"
+              title={props.route.name}
               navigation={props.navigation}
               scene={scene}
             />
           ),
-        backgroundColor: '#FFFFFF'
+          backgroundColor: '#FFFFFF'
         }}
+        initialParams={{ itemId: props.route.params?.id }}
       />
       <Stack.Screen
         name="InfoTramite"
@@ -185,11 +190,34 @@ function TramitesStack(props) {
           headerTransparent: true
         }}
       />
+      <Stack.Screen
+        name="Direccion"
+        component={direccion}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="Direccion"
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
 
 export default function AppStack(props) {
+  const [sectores, setSectores] = useState([]);
+  async function load() {
+    const data = await AxiosFactory('tramite/GetSectorUniversitarios').get()
+    setSectores(data.data)
+  }
+
+  useEffect(() => { 
+    load();
+  }, [])
+
   return (
     <Drawer.Navigator
       style={{ flex: 1 }}
@@ -225,7 +253,12 @@ export default function AppStack(props) {
       {/* <Drawer.Screen name="Articles" component={ArticlesStack} /> */}
       {/* <Drawer.Screen name="Profile" component={ProfileStack} /> */}
       {/* <Drawer.Screen name="Account" component={AccountStack} /> */}
-      <Drawer.Screen name="Tramites" component={TramitesStack} />
+      <Drawer.Screen name="Tramites" component={TramitesStack} options={{title: "folder"}}/>
+      {sectores?.map((sector, i) => {
+        return(
+          <Drawer.Screen key={i} name={sector.nombre} component={TramitesStack} initialParams={{id: sector.id}}/>
+        )
+      })}
     </Drawer.Navigator>
   );
 }

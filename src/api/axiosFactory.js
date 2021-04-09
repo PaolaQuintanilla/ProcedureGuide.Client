@@ -5,11 +5,11 @@ import axios from 'axios';
  * @param {String} url required: The url of the endpoint where we will retrieve the custom events.
  */
 const AxiosFactory = (api) =>  {
-  console.log("axiosFactory")
+  // console.log("axiosFactory")
   const axiosInstance = axios.create({
-    baseURL: "https://localhost:5001/"+api,
+    baseURL: "http://192.168.0.141:5000/"+api,
   });
-  console.log(axiosInstance, "axiosIntance")
+  // console.log(axiosInstance, "axiosIntance")
   axiosInstance.interceptors.response.use(
     response => {
       return response;
