@@ -6,29 +6,27 @@ import AxiosFactory from '../api/axiosFactory';
 
 function InfoTramite (props) {
     const [requisitos, setRequisitos] = useState([]) 
-    console.log(props, 'infoTramite') 
     async function load() {
       const api = AxiosFactory('tramite');
       const data = await api.get('http://192.168.0.141:5000/tramite/GetRequisitosBy/'+ props.route.params.tramite);
-      console.log(data.data, "rr")
       setRequisitos(data.data)
     }
-    console.log(requisitos,'requisitos')
     useEffect(() => { 
       load();
     }, [])
     return (
         <Block style={{ marginTop: 20, marginBottom: 30, marginLeft:30}}>
-
+        {/* // <Block> */}
             {
               requisitos.map( (tramite, i) => {
-                  return (<List.Item
+                  return (
+                  <List.Item
                       onPress={() => props.navigation.navigate('Direccion', {tramite: tramite.idTramites})}
                       key={i}
                       title={tramite.nombre}
                       description={tramite.nombre}
                       left={props => <List.Icon {...props} icon="check"/>}
-                      right={props => <List.Icon {...props} icon="information" onPress={() => props.navigation.navigate('Direccion', {tramite: tramite.idTramites})}/>}
+                      right={props => <List.Icon {...props} icon="information"/>}
                   />)
               })
             }

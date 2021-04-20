@@ -155,7 +155,6 @@ function ProfileStack(props) {
 // }
 
 function TramitesStack(props) {
-  console.log(props, 'props')
   return (
     <Stack.Navigator initialRouteName={props.route.name} mode="card" headerMode="screen">
       <Stack.Screen

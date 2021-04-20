@@ -52,7 +52,6 @@ async function axiosApiCall(){
 
 function Tramites(props) {    
   const [procedure, setProcedure] = useState([]);
-  console.log(props, 'tramitess')
   async function load() {
     const api = AxiosFactory('tramite');
     const response = await api.get('http://192.168.0.141:5000/tramite/GetBySectorUniversitario/'+ props.route.params.itemId);

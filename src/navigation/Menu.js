@@ -59,7 +59,7 @@ function CustomDrawerContent({
   // })
 
   // const insets = useSafeArea();
-  console.log(screen, "sd")
+  // console.log(screen, "sd")
   // const screens = [
   //   "Tramites",
   //   "Components",
