@@ -31,49 +31,19 @@ function CustomDrawerContent({
   async function load() {
     const {data} = await axios.get('http://192.168.0.141:5000/tramite/GetSectorUniversitarios')
     setScreen(data)
-    // .then((response)=>{
-    //   console.log(response.data, "res")
-    //   setScreen(response.data)
-    //   // screens = response.data;
-    // })
-    // .catch((error) => {
-    //   console.log(error)
-    // })
-
   }
 
   useEffect(() => { 
     load();
   }, [])
 
-  
-
-  // axios.get('http://192.168.0.141:5000/tramite/GetSectorUniversitarios')
-  // .then((response)=>{
-  //   console.log(response.data, "res")
-  //   setScreen(response.data)
-  //   screens = response.data;
-  // })
-  // .catch((error) => {
-  //   console.log(error)
-  // })
-
-  // const insets = useSafeArea();
-  // console.log(screen, "sd")
-  // const screens = [
-  //   "Tramites",
-  //   "Components",
-  //   "Articles",
-  //   "Profile",
-  //   "Account",
-  // ];
   return (
     <Block
       style={styles.container} 
       forceInset={{ top: "always", horizontal: "never" }}
     >
       <Block style={styles.header}>
-        <Image style={styles.logo} source={Images.Logo} />
+        <Image style={styles.logo} source={Images.Umss} />
         <Block right style={styles.headerIcon}>
           <Icon
             name="align-left-22x"
@@ -91,7 +61,7 @@ function CustomDrawerContent({
                 title={item.nombre}
                 key={index}
                 navigation={navigation}
-                focused={state.index === index ? true : false}
+                focused={state.index === index+1 ? true : false}
               />
             );
           })}
@@ -103,11 +73,11 @@ function CustomDrawerContent({
             color={nowTheme.COLORS.WHITE}
             style={{ marginTop: 30, marginLeft: 20, marginBottom: 10, fontFamily: 'montserrat-regular', fontWeight: '300', fontSize: 12}}
           >
-            DOCUMENTATION
+            {/* DOCUMENTATION */}
           </Text>
         </Block>
-        <DrawerItem title="GETTING STARTED" navigation={navigation}/>
-        <DrawerItem title="LOGOUT" navigation={navigation}/>
+        {/* <DrawerItem title="GETTING STARTED" navigation={navigation}/> */}
+        {/* <DrawerItem title="LOGOUT" navigation={navigation}/> */}
         </ScrollView>
       </Block>
     </Block>
@@ -128,7 +98,7 @@ const styles = StyleSheet.create({
     marginTop: -20
   },
   logo: {
-    height: 40,
+    height: 50,
     width: 37
   }
 });

@@ -15,8 +15,7 @@ function InfoTramite (props) {
       load();
     }, [])
     return (
-        <Block style={{ marginTop: 20, marginBottom: 30, marginLeft:30}}>
-        {/* // <Block> */}
+        <Block style={{ marginTop: 80, marginBottom: 30, marginLeft:30}}>
             {
               requisitos.map( (tramite, i) => {
                   return (
@@ -30,7 +29,6 @@ function InfoTramite (props) {
                   />)
               })
             }
-
         </Block>
     )    
 }

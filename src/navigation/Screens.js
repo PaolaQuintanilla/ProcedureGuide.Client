@@ -178,7 +178,7 @@ function TramitesStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title=""
+              title="Detalles"
               back
               black
               transparent
@@ -195,6 +195,9 @@ function TramitesStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
+              back
+              black
+              transparent
               title="Direccion"
               navigation={navigation}
               scene={scene}
