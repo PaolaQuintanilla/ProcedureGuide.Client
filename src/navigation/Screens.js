@@ -22,7 +22,7 @@ import CustomDrawerContent from "./Menu";
 // header for screens
 import Header from '../components/Header';
 import nowTheme from "../constants/Theme";
-import direccion from '../screens/direccion';
+import direction from '../screens/direction';
 
 const { width } = Dimensions.get("screen");
 
@@ -191,7 +191,7 @@ function TramitesStack(props) {
       />
       <Stack.Screen
         name="Direccion"
-        component={direccion}
+        component={direction}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -212,9 +212,11 @@ function TramitesStack(props) {
 export default function AppStack(props) {
   const [sectores, setSectores] = useState([]);
   async function load() {
-    const data = await AxiosFactory('tramite/GetSectorUniversitarios').get()
+    const data = await AxiosFactory('tramite/GetFaculties').get()
     setSectores(data.data)
   }
+  const data = [{nombre: "test", id: 1}, {nombre:"test2", id:2}];
+  // setSectores(data);
 
   useEffect(() => { 
     load();
@@ -256,9 +258,10 @@ export default function AppStack(props) {
       {/* <Drawer.Screen name="Profile" component={ProfileStack} /> */}
       {/* <Drawer.Screen name="Account" component={AccountStack} /> */}
       <Drawer.Screen name="Tramites" component={TramitesStack} options={{title: "folder"}}/>
+      {/* {data.map((sector, i) => { */}
       {sectores?.map((sector, i) => {
         return(
-          <Drawer.Screen key={i} name={sector.nombre} component={TramitesStack} initialParams={{id: sector.id}}/>
+          <Drawer.Screen key={i} name={sector.name} component={TramitesStack} initialParams={{id: sector.id}}/>
         )
       })}
     </Drawer.Navigator>

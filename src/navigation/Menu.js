@@ -29,7 +29,7 @@ function CustomDrawerContent({
   const [screen, setScreen] = useState([]);
   // let screens = [];
   async function load() {
-    const {data} = await axios.get('http://192.168.0.141:5000/tramite/GetSectorUniversitarios')
+    const {data} = await axios.get('http://192.168.0.141:5000/tramite/GetFaculties')
     setScreen(data)
   }
 
@@ -58,7 +58,7 @@ function CustomDrawerContent({
           {screen.map((item, index) => {
             return (
               <DrawerItem
-                title={item.nombre}
+                title={item.name}
                 key={index}
                 navigation={navigation}
                 focused={state.index === index+1 ? true : false}

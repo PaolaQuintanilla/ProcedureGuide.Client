@@ -2,17 +2,20 @@ import React, { useRef, useCallback } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet } from "react-native";
 
-function Map({ position, markers }) {
-
+function Map({ position, positionEnd, markers }) {
+  console.log(positionEnd, 'positionEnd')
   return (
     <MapView
         provider={PROVIDER_GOOGLE}
+        // style={{flex: 1, width:600, height:300}}
         style={{flex: 1}}
         showsUserLocation
         initialRegion={{
-            latitude: position.latitude,
-            longitude: position.longitude,
+            latitude: position.latitude,//Y
+            longitude: position.longitude,//X
+            // longitudeDelta: 0.08,
             longitudeDelta: 0.0922,
+            // latitudeDelta: 0.07,
             latitudeDelta: 0.0421,
         }}
       minZoomLevel={9}
@@ -30,11 +33,13 @@ function Map({ position, markers }) {
       ))}
       <MapView.Marker
         coordinate={
-           {
-            latitude: -17.419523180619915,
-            longitude: -66.13560526815614,
-            }
+          {
+            latitude: positionEnd?.yCoordinate,
+            longitude: positionEnd?.xCoordinate,
+          }
         }
+        title={"Ventanilla Destino"}
+        // description={marker.description}
       />
     </MapView>
   );

@@ -5,12 +5,13 @@ import { StyleSheet, View } from "react-native";
 import * as Location from "expo-location";
 import Map from "../components/Map";
 
-export default function direccion() {
+export default function direccion(props) {
     const [position, setPosition] = useState(null);
     const [markers, setMarkers] = useState([]);
-
+    console.log(props, 'props')
     const getGeolocation = async () => {
         const { coords } = await Location.getCurrentPositionAsync({});
+        console.log(coords)
         setMarkers([
             {
               latitude: coords.latitude,
@@ -30,7 +31,7 @@ export default function direccion() {
         <View style={styles.container}>
             {(position && (
                 <View style={styles.mapsView}>
-                    <Map position={position} markers={markers} />
+                    <Map position={position} positionEnd={props.coordinates} markers={markers} />
                 </View>
             )) || (
                     <View>
@@ -44,7 +45,7 @@ export default function direccion() {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+    //   flex: 1,
       backgroundColor: "#fff",
       alignItems: "center",
       justifyContent: "center",
