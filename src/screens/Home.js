@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, ScrollView } from "react-native";
 import { Block, theme, Text } from "galio-framework";
 
 import { Card } from "../components/Card";
-import articles from "../constants/articles";
+import articles from "../constants/Articles";
 const { width } = Dimensions.get("screen");
 
 class Home extends React.Component {
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     paddingVertical: theme.SIZES.BASE,
     paddingHorizontal: 2,
     fontFamily: 'montserrat-regular'
-
   }
 });
 

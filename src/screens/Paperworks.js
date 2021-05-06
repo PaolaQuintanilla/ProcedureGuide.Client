@@ -3,20 +3,18 @@ import { Block, Text, Button, theme } from 'galio-framework';
 import { List } from 'react-native-paper';
 import { ScrollView } from 'react-native';
 import axios from 'axios'
-import AxiosFactory from '../api/axiosFactory';
+import AxiosFactory from '../api/AxiosFactory';
 
 
 
 
-function Tramites(props) {
+function Paperworks(props) {
   const [procedure, setProcedure] = useState([]);
   async function load() {
-    const api = AxiosFactory('tramite');
-    const response = await api.get('http://192.168.0.141:5000/tramite/GetByFaculty/' + props.route.params.itemId);
+    const api = AxiosFactory('paperwork'); 
+    const response = await api.get('/GetByFaculty/' + props.route.params.itemId);
     setProcedure(response.data)
   }
-
-  const data = [{ nombre: "tr1", idTramites: 1 }, { nombre: "tr2", idTramites: 2 }, { nombre: "tr3", idTramites: 3 }];
 
   useEffect(() => {
     load();
@@ -28,7 +26,7 @@ function Tramites(props) {
         {
           procedure.map((tramite, i) => {
             return (<List.Item
-              onPress={() => props.navigation.navigate('InfoTramite', { tramite: tramite.id })}
+              onPress={() => props.navigation.navigate('InfoPaperwork', { tramite: tramite.id })}
               key={i}
               title={tramite.name}
               description={tramite.description}
@@ -48,4 +46,4 @@ function Tramites(props) {
   )
 }
 
-export default Tramites;
+export default Paperworks;

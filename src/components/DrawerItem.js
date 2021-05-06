@@ -9,7 +9,6 @@ import nowTheme from "../constants/Theme";
 class DrawerItem extends React.Component {
   renderIcon = () => {
     const { title, focused } = this.props;
-
     switch (title) {
       case "Home":
         return (
@@ -71,7 +70,7 @@ class DrawerItem extends React.Component {
             style={{ opacity: 0.5 }}
           />
         );
-      case "Examples":
+      case "SectorAcademico":
         return (
           <Icon
             name="album"
@@ -100,7 +99,7 @@ class DrawerItem extends React.Component {
             color={focused ? nowTheme.COLORS.PRIMARY : "white"}
           />
         );
-      case "Tramites":
+      case "Paperworks":
         return (
           <Icon
             name="share" //filetext1 || documents

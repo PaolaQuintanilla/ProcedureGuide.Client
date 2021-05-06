@@ -1,22 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Dimensions,
-  Image,
-  TouchableOpacity,
-  Linking
-} from "react-native";
-import { Block, Text, theme } from "galio-framework";
-import { useSafeArea } from "react-native-safe-area-context";
+import { ScrollView, StyleSheet, Image } from "react-native";
+import { Block, theme } from "galio-framework";
 import Images from "../constants/Images";
 import DrawerItem from "../components/DrawerItem";
 import Icon from "../components/Icon";
-import axios from 'axios';
-
-import nowTheme from "../constants/Theme";
-
-const { width } = Dimensions.get("screen");
+import AxiosFactory from "../api/AxiosFactory";
 
 function CustomDrawerContent({
   drawerPosition,
@@ -25,21 +13,21 @@ function CustomDrawerContent({
   focused,
   state,
   ...rest
-})  {
+}) {
   const [screen, setScreen] = useState([]);
-  // let screens = [];
+
   async function load() {
-    const {data} = await axios.get('http://192.168.0.141:5000/tramite/GetFaculties')
+    const { data } = await AxiosFactory('paperwork/GetFaculties').get();
     setScreen(data)
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     load();
   }, [])
 
   return (
     <Block
-      style={styles.container} 
+      style={styles.container}
       forceInset={{ top: "always", horizontal: "never" }}
     >
       <Block style={styles.header}>
@@ -61,23 +49,15 @@ function CustomDrawerContent({
                 title={item.name}
                 key={index}
                 navigation={navigation}
-                focused={state.index === index+1 ? true : false}
+                focused={state.index === index + 1 ? true : false}
               />
             );
           })}
           <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
-          <Block
-            style={{ borderColor: 'white', width: '93%', borderWidth: StyleSheet.hairlineWidth, marginHorizontal: 10}}
-          />
-          <Text
-            color={nowTheme.COLORS.WHITE}
-            style={{ marginTop: 30, marginLeft: 20, marginBottom: 10, fontFamily: 'montserrat-regular', fontWeight: '300', fontSize: 12}}
-          >
-            {/* DOCUMENTATION */}
-          </Text>
-        </Block>
-        {/* <DrawerItem title="GETTING STARTED" navigation={navigation}/> */}
-        {/* <DrawerItem title="LOGOUT" navigation={navigation}/> */}
+            <Block
+              style={{ borderColor: 'white', width: '93%', borderWidth: StyleSheet.hairlineWidth, marginHorizontal: 10 }}
+            />
+          </Block>
         </ScrollView>
       </Block>
     </Block>

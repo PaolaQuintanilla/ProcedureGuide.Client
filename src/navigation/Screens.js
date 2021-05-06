@@ -1,165 +1,28 @@
 import React, { useState,useEffect} from 'react';
-import { Block } from "galio-framework";
-import { Easing, Animated, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// screens
-import Home from '../screens/Home';
-import AxiosFactory from '../api/axiosFactory';
-
-// import Pro from '../screens/Pro';
-// import Profile from '../screens/Profile';
-// import Register from '../screens/Register';
-// import Components from '../screens/Components';
-// import Articles from '../screens/Articles';
-// import Onboarding from '../screens/Onboarding';
-import Tramites from '../screens/Tramites';
-import InfoTramite from '../screens/InfoTramite';
-// import SettingsScreen from '../screens/Settings';
+import AxiosFactory from '../api/AxiosFactory';
+import Paperworks from '../screens/Paperworks';
+import InfoPaperwork from '../screens/InfoPaperwork';
 // drawer
 import CustomDrawerContent from "./Menu";
 // header for screens
 import Header from '../components/Header';
 import nowTheme from "../constants/Theme";
-import direction from '../screens/direction';
+import Direction from '../screens/Direction';
 
 const { width } = Dimensions.get("screen");
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-/*function ComponentsStack(props) {
-  return (
-    <Stack.Navigator initialRouteName="Components" mode="card" headerMode="screen">
-      <Stack.Screen name="Components" component={Components} options={{
-        header:({ navigation, scene }) => (<Header title="Components" navigation={navigation} scene={scene} />),
-        backgroundColor: "#FFFFFF"
-      }}/>
-    </Stack.Navigator>
-  );
-}
-
-function ArticlesStack(props) {
-  return (
-    <Stack.Navigator initialRouteName="Articles" mode="card" headerMode="screen">
-      <Stack.Screen name="Articles" component={Articles} options={{
-        header: ({ navigation, scene }) => (<Header title="Articles" navigation={navigation} scene={scene} />),
-        backgroundColor: '#FFFFFF'
-      }} />
-    </Stack.Navigator>
-  );
-}
-
-function AccountStack(props) {
-  return (
-    <Stack.Navigator initialRouteName="Account" mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Account"
-        component={Register}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header 
-              transparent
-              title="Create Account"
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function ProfileStack(props) {
-  return (
-    <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              transparent
-              white
-              title="Profile"
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          cardStyle: { backgroundColor: "#FFFFFF" },
-          headerTransparent: true
-        }}
-      />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-*/
-// function HomeStack(props) {
-//   return (
-//     <Stack.Navigator mode="card" headerMode="screen">
-//       <Stack.Screen
-//         name="Home"
-//         component={Home}
-//         options={{
-//           header: ({ navigation, scene }) => (
-//             <Header
-//               title="Home"
-//               search
-//               options
-//               navigation={navigation}
-//               scene={scene}
-//             />
-//           ),
-//           cardStyle: { backgroundColor: "#FFFFFF" }
-//         }}
-//       />
-//       <Stack.Screen
-//         name="Pro"
-//         component={Pro}
-//         options={{
-//           header: ({ navigation, scene }) => (
-//             <Header
-//               title=""
-//               back
-//               white
-//               transparent
-//               navigation={navigation}
-//               scene={scene}
-//             />
-//           ),
-//           headerTransparent: true
-//         }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
-
-function TramitesStack(props) {
+function PaperworksStack(props) {
   return (
     <Stack.Navigator initialRouteName={props.route.name} mode="card" headerMode="screen">
       <Stack.Screen
         name={props.route.name}
-        component={Tramites}
+        component={Paperworks}
         options={{
           header: ({ navigation, scene }) => (
             <Header 
@@ -173,8 +36,8 @@ function TramitesStack(props) {
         initialParams={{ itemId: props.route.params?.id }}
       />
       <Stack.Screen
-        name="InfoTramite"
-        component={InfoTramite}
+        name="InfoPaperwork"
+        component={InfoPaperwork}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -191,7 +54,7 @@ function TramitesStack(props) {
       />
       <Stack.Screen
         name="Direccion"
-        component={direction}
+        component={Direction}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -209,14 +72,13 @@ function TramitesStack(props) {
   );
 }
 
-export default function AppStack(props) {
+export default function AppStack() {
+
   const [sectores, setSectores] = useState([]);
   async function load() {
-    const data = await AxiosFactory('tramite/GetFaculties').get()
+    const data = await AxiosFactory('paperwork/GetFaculties').get()
     setSectores(data.data)
   }
-  const data = [{nombre: "test", id: 1}, {nombre:"test2", id:2}];
-  // setSectores(data);
 
   useEffect(() => { 
     load();
@@ -252,34 +114,12 @@ export default function AppStack(props) {
       }}
       initialRouteName="Home"
     >
-      {/* <Drawer.Screen name="Home" component={HomeStack} /> */}
-      {/* <Drawer.Screen name="Components" component={ComponentsStack} /> */}
-      {/* <Drawer.Screen name="Articles" component={ArticlesStack} /> */}
-      {/* <Drawer.Screen name="Profile" component={ProfileStack} /> */}
-      {/* <Drawer.Screen name="Account" component={AccountStack} /> */}
-      <Drawer.Screen name="Tramites" component={TramitesStack} options={{title: "folder"}}/>
-      {/* {data.map((sector, i) => { */}
+      <Drawer.Screen name="Paperworks" component={PaperworksStack} options={{title: "folder"}}/>
       {sectores?.map((sector, i) => {
         return(
-          <Drawer.Screen key={i} name={sector.name} component={TramitesStack} initialParams={{id: sector.id}}/>
+          <Drawer.Screen key={i} name={sector.name} component={PaperworksStack} initialParams={{id: sector.id}}/>
         )
       })}
     </Drawer.Navigator>
   );
 }
-
-// export default function OnboardingStack(props) {
-//   return (
-//     <Stack.Navigator mode="card" headerMode="none">
-//       <Stack.Screen
-//         name="Onboarding"
-//         component={TramitesStack}
-//         option={{
-//           headerTransparent: true
-//         }}        
-//       />
-//       <Stack.Screen name="App" component={AppStack} />
-//     </Stack.Navigator>
-//   );
-// }
-

@@ -3,19 +3,15 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet } from "react-native";
 
 function Map({ position, positionEnd, markers }) {
-  console.log(positionEnd, 'positionEnd')
   return (
     <MapView
         provider={PROVIDER_GOOGLE}
-        // style={{flex: 1, width:600, height:300}}
         style={{flex: 1}}
         showsUserLocation
         initialRegion={{
             latitude: position.latitude,//Y
             longitude: position.longitude,//X
-            // longitudeDelta: 0.08,
             longitudeDelta: 0.0922,
-            // latitudeDelta: 0.07,
             latitudeDelta: 0.0421,
         }}
       minZoomLevel={9}
