@@ -11,6 +11,7 @@ import CustomDrawerContent from "./Menu";
 import Header from '../components/Header';
 import nowTheme from "../constants/Theme";
 import Direction from '../screens/Direction';
+import Reception from '../screens/Reception';
 
 const { width } = Dimensions.get("screen");
 
@@ -72,6 +73,25 @@ function PaperworksStack(props) {
   );
 }
 
+function ReceptionsStack(props) {
+  return (
+    <Stack.Navigator initialRouteName={props.route.name} mode="card" headerMode="screen">
+      <Stack.Screen
+        name="Oficina y Ventanilla"
+        component={Reception}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="Oficina y Ventanilla"
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 export default function AppStack() {
 
   const [sectores, setSectores] = useState([]);
@@ -120,6 +140,7 @@ export default function AppStack() {
           <Drawer.Screen key={i} name={sector.name} component={PaperworksStack} initialParams={{id: sector.id}}/>
         )
       })}
+      <Drawer.Screen name="Oficinas y Ventanillas" component={ReceptionsStack} />
     </Drawer.Navigator>
   );
 }

@@ -39,6 +39,7 @@ function InfoPaperwork(props) {
   const [position, setPosition] = useState(0);
   const [length, setLength] = useState(1);
   const [labels, setLabels] = useState([]);
+  const [coordinates, setCoordinates] = useState([]);
 
   const nextStep = () => {
     setPosition(position + 1);
@@ -68,8 +69,20 @@ function InfoPaperwork(props) {
     const api = AxiosFactory('paperwork');
     const data = await api.get('/GetRequirementsBy/' + props.route.params.tramite);
     setLength(data.data.length);
+    getCoordinates(data.data);
     setRequisitos(data.data);
     getLabels(data.data);
+  }
+
+  function getCoordinates(list) {
+    var result = list.map( r => {
+      return {
+        yCoordinate: r.paperWorkReception?.coordinate.xCoordinate,
+        xCoordinate: r.paperWorkReception?.coordinate.yCoordinate,
+        message: r.name
+      }
+    })
+    setCoordinates(result);
   }
 
   useEffect(() => {
@@ -101,22 +114,22 @@ function InfoPaperwork(props) {
         onSwipeLeft={(position) => onSwipeLeft(position)}
         onSwipeRight={(position) => onSwipeRight(position)}
       >
-        <Block style={{ backgroundColor: '#eceff1', marginTop: 20, borderRadius: 30 }}>
-          <Text style={{ margin: 20 }}>
+        <Block style={styles.information}>
+          <Text style={styles.name}>
             {requisitos[position] ? requisitos[position].name : ''}
           </Text>
-          <Text style={{ fontFamily: 'montserrat-regular', margin: 20 }}>
+          <Text style={styles.description}>
             {requisitos[position] ? requisitos[position].description : ''}
           </Text>
         </Block>
         <Block style={styles.map}>
-          <Direction coordinates={requisitos[position]?.paperWorkReception.coordinate}></Direction>
-        </Block>
-        <Block style={{ flexDirection: 'row', alignSelf: 'flex-start', alignItems: 'center' }}>
-          <ArButton onPress={() => { previousStep() }}>Anterior</ArButton>
-          <ArButton onPress={() => { nextStep() }}>Siguiente</ArButton>
+          <Direction coordinates={coordinates[position]}></Direction>
         </Block>
       </GestureRecognizer>
+      <Block style={styles.buttonStyle}>
+        <ArButton onPress={() => { previousStep() }}>Anterior</ArButton>
+        <ArButton onPress={() => { nextStep() }}>Siguiente</ArButton>
+      </Block> 
     </View>
   )
 }
@@ -128,6 +141,23 @@ const styles = StyleSheet.create({
   },
   indicatorContainer: {
     marginTop: 100
+  },
+  buttonStyle: {
+    flexDirection: 'row',
+    justifyContent:'center',
+    width: '100%'
+  },
+  information: {
+    backgroundColor: '#eceff1', 
+    marginTop: 20, 
+    borderRadius: 30
+  },
+  name: {
+    margin: 20
+  },
+  description: {
+    fontFamily: 'montserrat-regular', 
+    margin: 20
   }
 });
 

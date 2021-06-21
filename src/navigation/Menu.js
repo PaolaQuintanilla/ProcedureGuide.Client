@@ -53,6 +53,12 @@ function CustomDrawerContent({
               />
             );
           })}
+          <DrawerItem
+            title="Oficinas y Ventanillas"
+            key={screen.length}
+            navigation={navigation}
+            focused={state.index === screen.length + 1 ? true : false}
+          />
           <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
             <Block
               style={{ borderColor: 'white', width: '93%', borderWidth: StyleSheet.hairlineWidth, marginHorizontal: 10 }}

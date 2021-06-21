@@ -1,8 +1,7 @@
 import React, { useRef, useCallback } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { StyleSheet } from "react-native";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
-function Map({ position, positionEnd, markers }) {
+function Map({ position, positionEnd, markers }){
   return (
     <MapView
         provider={PROVIDER_GOOGLE}
@@ -11,8 +10,8 @@ function Map({ position, positionEnd, markers }) {
         initialRegion={{
             latitude: position.latitude,//Y
             longitude: position.longitude,//X
-            longitudeDelta: 0.0922,
-            latitudeDelta: 0.0421,
+            latitudeDelta: 0.0073,
+            longitudeDelta: 0.0064
         }}
       minZoomLevel={9}
     >
@@ -20,32 +19,24 @@ function Map({ position, positionEnd, markers }) {
         <MapView.Marker
           key={`map-item-${index}`}
           coordinate={{
-            latitude: marker.latitude,
-            longitude: marker.longitude,
+            latitude: marker?.latitude,
+            longitude: marker?.longitude,
           }}
-          title={marker.message}
-          description={marker.description}
+          title={marker?.message}
+          description={marker?.description}
         />
       ))}
       <MapView.Marker
         coordinate={
           {
-            latitude: positionEnd?.yCoordinate,
-            longitude: positionEnd?.xCoordinate,
+            latitude: positionEnd?.xCoordinate,
+            longitude: positionEnd?.yCoordinate,
           }
         }
-        title={"Ventanilla Destino"}
-        // description={marker.description}
+        title={positionEnd?.message}
       />
     </MapView>
   );
 }
-
-const styles = StyleSheet.create({
-  mapView: {
-    width: "100%",
-    height: "100%",
-  },
-});
 
 export default Map;
