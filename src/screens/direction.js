@@ -9,8 +9,6 @@ export default function direccion(props) {
     const [position, setPosition] = useState(null);
     const [markers, setMarkers] = useState([]);
     const getGeolocation = async () => {
-        // let { status } = await Location.requestPermissionsAsync() 
-        // console.log(status, 'status');
         const { coords } = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
         setMarkers([
             {
