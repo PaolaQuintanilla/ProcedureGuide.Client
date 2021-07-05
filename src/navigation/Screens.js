@@ -12,6 +12,7 @@ import Header from '../components/Header';
 import nowTheme from "../constants/Theme";
 import Direction from '../screens/Direction';
 import Reception from '../screens/Reception';
+import TodoList from '../screens/TodoList';
 
 const { width } = Dimensions.get("screen");
 
@@ -42,7 +43,24 @@ function PaperworksStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Detalles"
+              title="Requisitos"
+              back
+              black
+              transparent
+              navigation={navigation}
+              scene={scene}
+            />
+          ),
+          headerTransparent: true
+        }}
+      />
+      <Stack.Screen
+        name="TodoList"
+        component={TodoList}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header
+              title="Lista de Requisitos"
               back
               black
               transparent
@@ -77,7 +95,7 @@ function ReceptionsStack(props) {
   return (
     <Stack.Navigator initialRouteName={props.route.name} mode="card" headerMode="screen">
       <Stack.Screen
-        name="Oficina y Ventanilla"
+        name="Oficinas y Ventanillas"
         component={Reception}
         options={{
           header: ({ navigation, scene }) => (
@@ -92,6 +110,7 @@ function ReceptionsStack(props) {
     </Stack.Navigator>
   );
 }
+
 export default function AppStack() {
 
   const [sectores, setSectores] = useState([]);

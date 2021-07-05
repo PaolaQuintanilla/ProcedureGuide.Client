@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Block } from 'galio-framework';
 import { List } from 'react-native-paper';
 import { ScrollView } from 'react-native';
+import Button from '../components/Button'
 import AxiosFactory from '../api/AxiosFactory';
 
 function Paperworks(props) {
@@ -27,6 +28,7 @@ function Paperworks(props) {
               title={tramite.name}
               description={tramite.description}
               left={props => <List.Icon {...props} icon="folder" />}
+              right={() => <Block><Button small onPress={() => props.navigation.navigate('TodoList', { tramite: tramite.id })}>ToDo</Button></Block>}
             />)
           })
         }
