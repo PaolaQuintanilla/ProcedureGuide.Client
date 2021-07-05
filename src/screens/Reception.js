@@ -16,8 +16,8 @@ function Receptions() {
     function createMarkers(list) {
         let positionEnd = list.pop()
         let coordinate = {
-            yCoordinate: positionEnd.coordinate.yCoordinate,
-            xCoordinate: positionEnd.coordinate.xCoordinate,
+            yCoordinate: positionEnd.coordinate.xCoordinate,
+            xCoordinate: positionEnd.coordinate.yCoordinate,
             message: positionEnd.name
         }
 
